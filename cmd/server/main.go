@@ -6,6 +6,7 @@ import (
 	"net"
 
 	"google.golang.org/grpc"
+	"google.golang.org/grpc/reflection"
 	pb "GRPCAgentHub/GRPCAgentHub/agent"
 )
 
@@ -27,7 +28,9 @@ func main() {
 	}
 	s := grpc.NewServer()
 	pb.RegisterAgentServiceServer(s, &server{})
-	log.Printf("Mock server listening at %v", lis.Addr())
+	// Enable server reflection
+	reflection.Register(s)
+	log.Printf("Server with reflection listening at %v", lis.Addr())
 	if err := s.Serve(lis); err != nil {
 		log.Fatalf("failed to serve: %v", err)
 	}
