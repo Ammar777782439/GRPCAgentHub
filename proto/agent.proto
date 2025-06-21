@@ -1,0 +1,21 @@
+syntax = "proto3";
+
+package proto;
+
+option go_package = "GRPCAgentHub/agent";
+
+// The agent service definition.
+service AgentService {
+  // Sends a task to the agent
+  rpc ProcessTask (TaskRequest) returns (TaskResponse) {}
+}
+
+// The request message containing the data to be processed.
+message TaskRequest {
+  string data = 1;
+}
+
+// The response message containing the result.
+message TaskResponse {
+  string result = 1;
+}
